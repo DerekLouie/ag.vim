@@ -5,6 +5,10 @@ if !exists("g:agprg")
   let g:agprg="ag --column"
 endif
 
+if !exists("g:ag_base_dir")
+  let g:ag_base_dir=''
+endif
+
 if !exists("g:ag_apply_qmappings")
   let g:ag_apply_qmappings=1
 endif
@@ -56,7 +60,7 @@ function! ag#Ag(cmd, args)
   try
     let &grepprg=g:agprg
     let &grepformat=g:agformat
-    silent execute a:cmd . " " . escape(l:grepargs, '|')
+    silent execute a:cmd . " " . escape(l:grepargs, '|') . " " . g:ag_base_dir
   finally
     let &grepprg=grepprg_bak
     let &grepformat=grepformat_bak
